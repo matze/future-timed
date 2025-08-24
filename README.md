@@ -10,8 +10,8 @@ Future timing instrumentation for Rust async code.
 
 `future-timed` provides instrumentation to record the time taken by a future. It
 tracks the **busy time** which is the sum of all time consumed during calls to
-`Future::poll` on the future and the **idle time** which is The sum of all time
-between calls to `Future::poll` (excluding time before first poll)
+`Future::poll` on the future and the **idle time** which is the sum of all time
+between calls to `Future::poll` (excluding time before first poll).
 
 ## Installation
 

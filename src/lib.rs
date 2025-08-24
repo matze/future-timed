@@ -41,7 +41,7 @@
 //!
 //! This work is based almost entirely on the [future-timing] crate but sports a different API.
 //! While future-timing requires destructuring the future's output into the timing data and the
-//! futures output itself, fuiture-timed allows to report inline and compose the output with
+//! futures output itself, future-timed allows to report inline and compose the output with
 //! subsequent future combinators, for example from the [futures] crate:
 //!
 //! ```
