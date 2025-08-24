@@ -98,13 +98,14 @@ use pin_project_lite::pin_project;
 /// # fn do_something_with_output(_: u64) {}
 /// # #[tokio::main]
 /// # async fn main() {
-///     let output = timed(some_async_fn(), |Timing { idle, busy }| {
-///         assert!(!idle.is_zero());
-///         assert!(!busy.is_zero());
-///     })
-///     .await;
 ///
-///     do_something_with_output(output);
+/// let output = timed(some_async_fn(), |Timing { idle, busy }| {
+///     assert!(!idle.is_zero());
+///     assert!(!busy.is_zero());
+/// })
+/// .await;
+///
+/// do_something_with_output(output);
 /// # }
 pub fn timed<Fut, F>(fut: Fut, f: F) -> Timed<Fut, F>
 where
@@ -193,15 +194,15 @@ pub trait TimedFutureExt: Future {
     /// # async fn main() {
     ///
     /// let output = async {
-    ///     // Block the executor
-    ///     std::thread::sleep(Duration::from_micros(200));
-    ///     tokio::time::sleep(Duration::from_micros(10)).await;
+    ///         // Block the executor
+    ///         std::thread::sleep(Duration::from_micros(200));
+    ///         tokio::time::sleep(Duration::from_micros(10)).await;
     ///     42
-    /// }.timed(|Timing { idle, busy }| {
-    ///     assert!(idle > Duration::from_micros(10));
-    ///     assert!(busy > Duration::from_micros(200));
-    /// })
-    /// . await;
+    ///     }.timed(|Timing { idle, busy }| {
+    ///         assert!(idle > Duration::from_micros(10));
+    ///         assert!(busy > Duration::from_micros(200));
+    ///     })
+    ///     .await;
     ///
     /// assert_eq!(output, 42);
     /// # }
