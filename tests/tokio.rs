@@ -1,4 +1,4 @@
-use future_timed::{TimedFutureExt, Timing, timed};
+use future_timed::{timed, TimedFutureExt, Timing};
 use std::time::Duration;
 
 #[tokio::test]
