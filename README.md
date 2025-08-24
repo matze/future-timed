@@ -1,5 +1,6 @@
 # future-timed
 
+[![CI](https://github.com/matze/future-timed/actions/workflows/ci.yml/badge.svg)](https://github.com/matze/future-timed/actions/workflows/ci.yml)
 [![Crates.io](https://img.shields.io/crates/v/future-timed.svg)](https://crates.io/crates/future-timed)
 [![Documentation](https://docs.rs/future-timed/badge.svg)](https://docs.rs/future-timed)
 
