@@ -1,3 +1,5 @@
+//! Integration tests running on the tokio runtime.
+
 use future_timed::{timed, TimedFutureExt, Timing};
 use std::time::Duration;
 
