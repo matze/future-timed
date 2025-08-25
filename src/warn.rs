@@ -7,7 +7,11 @@ use std::time::{Duration, Instant};
 
 use pin_project_lite::pin_project;
 
-/// Instrument a future call a closure if a certain threshold is exceeded.
+/// Instrument a future call a closure if a certain threshold is exceeded. The closure is called
+/// for _each_ poll that exceeds the threshold.
+///
+/// In general, it is more straightforward to use the [`super::TimedFutureExt`] extension trait to
+/// instrument a future directly.
 ///
 /// # Examples
 ///

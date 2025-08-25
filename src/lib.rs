@@ -1,9 +1,10 @@
 //! Future timing instrumentation.
 //!
-//! Provides instrumentation to record the time taken by a future. This includes the busy time and
-//! the idle time. The busy time of a future is the sum of all the time consumed during calls to
-//! [`Future::poll`] on that future. On the other hand, The idle time of a future is the sum of all
-//! the time between calls to [`Future::poll`]. The time before the first poll is not included.
+//! Provides instrumentation to record the time taken by a future or warn if polling exceeds a
+//! threshold. The recorded time includes the busy time and the idle time. The busy time of a
+//! future is the sum of all the time consumed during calls to [`Future::poll`] on that future. On
+//! the other hand, The idle time of a future is the sum of all the time between calls to
+//! [`Future::poll`]. The time before the first poll is not included.
 //!
 //! # Usage
 //!
@@ -118,7 +119,8 @@ pub trait TimedFutureExt: Future {
         Timed::new(self, f)
     }
 
-    /// Instrument a future to warn when busy time exceeds a given threshold.
+    /// Instrument a future call a closure if a certain threshold is exceeded. The closure is
+    /// called for _each_ poll that exceeds the threshold.
     ///
     /// # Examples
     ///

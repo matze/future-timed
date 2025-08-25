@@ -11,7 +11,7 @@ use pin_project_lite::pin_project;
 ///
 /// The busy and idle time for the future will be passed as an argument to the provided closure.
 /// See the documentation for [`Timing`] for more details. In general, it is more straightforward
-/// to use the [`TimedFutureExt`] extension trait to attach instrument a future directly.
+/// to use the [`super::TimedFutureExt`] extension trait to instrument a future directly.
 ///
 /// # Examples
 ///
