@@ -77,12 +77,14 @@
 use std::future::Future;
 
 mod timed;
+mod warn;
 
 pub use timed::{timed, Timed, Timing};
+pub use warn::{warn_if, WarnIf};
 
 /// An extension trait for `Future`s that adds the [`timed`] method.
 pub trait TimedFutureExt: Future {
-    /// Instrument a future to record its timing
+    /// Instrument a future to record its timing.
     ///
     /// The busy and idle time for the future will be passed as an argument to the provided
     /// closure. See the documentation for [`Timing`] for more details.
@@ -114,6 +116,36 @@ pub trait TimedFutureExt: Future {
         F: FnOnce(Timing),
     {
         Timed::new(self, f)
+    }
+
+    /// Instrument a future to warn when busy time exceeds a given threshold.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use future_timed::TimedFutureExt;
+    /// # use std::time::Duration;
+    /// # #[tokio::main]
+    /// # async fn main() {
+    ///
+    /// let output = async {
+    ///     // Block the executor
+    ///     std::thread::sleep(Duration::from_micros(200));
+    ///     42
+    /// }
+    /// .warn_if(Duration::from_micros(10), |duration| {
+    ///     assert!(duration >= Duration::from_micros(200));
+    /// })
+    /// .await;
+    ///
+    /// assert_eq!(output, 42);
+    /// # }
+    fn warn_if<F>(self, threshold: std::time::Duration, f: F) -> WarnIf<Self, F>
+    where
+        Self: Sized,
+        F: Fn(std::time::Duration),
+    {
+        WarnIf::new(self, threshold, f)
     }
 }
 

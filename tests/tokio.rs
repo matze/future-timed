@@ -1,6 +1,6 @@
 //! Integration tests running on the tokio runtime.
 
-use future_timed::{timed, TimedFutureExt, Timing};
+use future_timed::{timed, warn_if, TimedFutureExt, Timing};
 use std::time::Duration;
 
 #[tokio::test]
@@ -45,4 +45,16 @@ async fn more_busy_time() {
     .await;
 
     assert_eq!(output, 42);
+}
+
+#[tokio::test]
+async fn warn_if_exceeds_threshold() {
+    let blocking = async {
+        std::thread::sleep(Duration::from_millis(10));
+    };
+
+    warn_if(blocking, Duration::from_millis(5), |duration| {
+        assert!(duration >= Duration::from_millis(5));
+    })
+    .await;
 }
