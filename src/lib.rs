@@ -103,6 +103,7 @@ pub trait TimedFutureExt: Future {
     ///     }.timed(|Timing { idle, busy }| {
     ///         assert!(idle > Duration::from_micros(10));
     ///         assert!(busy > Duration::from_micros(200));
+    ///     })
     ///     .await;
     ///
     /// assert_eq!(output, 42);
